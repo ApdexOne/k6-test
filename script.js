@@ -10,7 +10,7 @@ import jsonpath from 'https://jslib.k6.io/jsonpath/1.0.2/index.js';
 //Ramp up based on iterations (ramping-arrival-rate). With this type of executors, the load emission is not conditioned by the performance of the application under test.
 export let options = {
       tags: {
-        hostname: __ENV.HOSTNAME,
+        hostname: `${__ENV.MY_HOSTNAME}`,
       },
     //With "discardResponseBodies: true" the response body is discarded by default and is only enabled to parse and correlate data when "responseType: 'text'" is included in the request. This improves the performance of the script.
     discardResponseBodies: true,
