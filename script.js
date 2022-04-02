@@ -6,14 +6,12 @@ import papaparse from 'https://jslib.k6.io/papaparse/5.1.1/index.js';
 import {uuidv4} from 'https://jslib.k6.io/k6-utils/1.0.0/index.js';
 import jsonpath from 'https://jslib.k6.io/jsonpath/1.0.2/index.js';
 
-export const options = {
-  tags: {
-    hostname: __ENV.HOSTNAME,
-  },
-};
 
 //Ramp up based on iterations (ramping-arrival-rate). With this type of executors, the load emission is not conditioned by the performance of the application under test.
 export let options = {
+      tags: {
+        hostname: __ENV.HOSTNAME,
+      },
     //With "discardResponseBodies: true" the response body is discarded by default and is only enabled to parse and correlate data when "responseType: 'text'" is included in the request. This improves the performance of the script.
     discardResponseBodies: true,
     //Multiple scenarios can be declared in the same script, and each one can independently execute a different JavaScript function.Every scenario can use a distinct VU and iteration scheduling pattern.
