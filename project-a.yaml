@@ -10,7 +10,7 @@ spec:
     name: test-k6
   parameters:
     image: "norgefajardo/test-k6:latest"
-    args: ["run","/tmp/script.js","-o","output-prometheus-remote","-e","HOSTNAME=${HOSTNAME}"]
+    args: ["run","/tmp/script.js","-o","output-prometheus-remote","-e","MY_HOSTNAME=${HOSTNAME}"]
     schedule: "25 2 * * *"
     cpu: 100m
     memory: 28M
