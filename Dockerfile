@@ -4,6 +4,6 @@ ADD docker-entrypoint.sh /docker-entrypoint.sh
 
 WORKDIR /tmp
 
-ADD script.js .
+ADD PerfTestSmokeTest.js ./script.js
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
