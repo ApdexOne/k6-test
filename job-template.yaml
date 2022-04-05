@@ -1,0 +1,19 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: project-name
+spec:
+  completions: 2
+  parallelism: 2
+  template:
+    metadata:
+      name: project-name
+    spec:
+      containers:
+      - name: project
+        image: norgefajardo/test-k6:xxxx
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
