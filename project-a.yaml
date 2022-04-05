@@ -10,7 +10,7 @@ spec:
     name: test-k6
   parameters:
     image: "norgefajardo/test-k6:latest"
-    schedule: "25 3 * * *"
+    schedule: "20 5 * * 2"
     cpu: 100m
     memory: 28M
     pods: 2
