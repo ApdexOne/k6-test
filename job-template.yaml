@@ -2,17 +2,17 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: project-name
+  name: project-job-test
 spec:
   completions: 2
   parallelism: 2
   template:
     metadata:
-      name: project-name
+      name: project-job-test
     spec:
       containers:
       - name: project
-        image: norgefajardo/test-k6:xxxx
+        image: norgefajardo/test-k6:37b263732b5946ed14c2ab17b804daa37863ff8e
         resources:
           requests:
             memory: "64Mi"
