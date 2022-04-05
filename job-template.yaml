@@ -17,3 +17,4 @@ spec:
           requests:
             memory: "64Mi"
             cpu: "250m"
+      restartPolicy: Never
