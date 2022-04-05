@@ -2,13 +2,13 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: project-job-test
+  name: project-job-test-estopa
 spec:
   completions: 2
   parallelism: 2
   template:
     metadata:
-      name: project-job-test
+      name: project-job-test-estopa
     spec:
       containers:
       - name: project
