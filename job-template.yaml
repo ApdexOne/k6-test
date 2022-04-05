@@ -12,8 +12,9 @@ spec:
     spec:
       containers:
       - name: project
-        image: norgefajardo/test-k6:xxxx
+        image: norgefajardo/test-k6:118
         resources:
           requests:
             memory: "64Mi"
             cpu: "250m"
+      restartPolicy: Never
