@@ -1,16 +1,16 @@
-apiVersion: apdexone.com/v1alpha1
+apiVersion:  apdexone.com/v1alpha1
 kind: XTest
 metadata:
-  name: project-sabina
+  name: project-estopa
   labels:
     provider: k6
 spec:
-  id: project-sabina
+  id: project-estopa
   compositionRef:
     name: test-k6
   parameters:
     image: "norgefajardo/test-k6:latest"
-    schedule: "30 5 * * 2"
+    schedule: "15 8 * * *"
     cpu: 100m
     memory: 28M
     pods: 2
