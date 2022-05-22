@@ -22,10 +22,11 @@ jobs:
           cluster-name: << parameters.cluster-name >>
           aws-region: us-east-1
           aws-profile: default
+          cluster-context-alias: qa
           install-kubectl: true
       - run:
           command: |
-            kubectl get services
+            kubectl --context=qa  get services
 workflows:
   build_and_push_image:
     jobs:
