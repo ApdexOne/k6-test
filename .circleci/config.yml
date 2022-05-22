@@ -83,7 +83,7 @@ workflows:
           context: myContext
           create-repo: true
           dockerfile: Dockerfile
-          executor: aws-ecr/default
+          executor: dind-executor
           extra-build-args: '--compress'
           new-profile-name: newProfileName
           no-output-timeout: 20m
