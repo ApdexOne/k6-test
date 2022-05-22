@@ -10,6 +10,8 @@ jobs:
       - image: 'cimg/base:stable'
     steps:
       - kubernetes/install-kubectl
+      - kubernetes/install-kubeconfig:
+          kubeconfig: KUBECONFIG_DATA
       - kubernetes/create-or-update-resource:
           resource-file-path: job-template.yaml
           show-kubectl-command: true
