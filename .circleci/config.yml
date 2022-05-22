@@ -29,8 +29,6 @@ jobs:
       - run:
           command: |
             kubectl get services
-          name: Test cluster
-
 workflows:
   build_and_push_image:
     jobs:
