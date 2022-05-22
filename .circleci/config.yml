@@ -21,8 +21,8 @@ workflows:
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           tag: "${CIRCLE_SHA1}"
           executor: aws-ecr/default
-        requires:
-          - your-job
+          requires:
+            - your-job
 
 
 
