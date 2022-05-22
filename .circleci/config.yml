@@ -3,18 +3,13 @@ version: 2.1
 executors:
   dind-executor:
     docker:
-      - image: docker:dind
+      - image: cimg/base:2022.03
     working_directory: /tmp/k6-image/
 
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
   docker: circleci/docker@2.1.1
 
-jobs:
-  build:
-    steps:
-      - setup_remote_docker:
-          version: 20.10.14
 
 workflows:
   build_and_push_image:
@@ -22,6 +17,7 @@ workflows:
       - aws-ecr/build-and-push-image:
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           tag: "${CIRCLE_SHA1}"
+          executor: dind-executor
 
 
 
