@@ -12,10 +12,8 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
-          profile-name: web
-          role-arn: 'arn:aws:iam::169893196636:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_34498c3ee6913213'
-          role-session-name: example-session
-      - run: echo "Run your code here"
+          profile-name: default
+      - run: aws s3 ls
   test-cluster:
     docker:
       - image: 'cimg/python:3.10'
