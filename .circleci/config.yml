@@ -58,4 +58,4 @@ workflows:
       - test-cluster:
           cluster-name: k8s-qa
           requires:
-            - configure-role-arn
+            - aws-cli-example
