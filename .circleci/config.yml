@@ -6,9 +6,13 @@ orbs:
 workflows:
   build_and_push_image:
     jobs:
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
       - aws-ecr/build-and-push-image:
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           tag: "${CIRCLE_SHA1}"
+          executor: aws-ecr/default
 
 
 
@@ -18,7 +22,6 @@ workflows:
             #aws-secret-access-key: SECRET_ACCESS_KEY_ENV_VAR_NAME
             #context: myContext
             #create-repo: true
-            #executor: aws-ecr/default
             #extra-build-args: '--compress'
             #no-output-timeout: 20m
             #platform: linux/amd64
