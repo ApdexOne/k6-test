@@ -51,6 +51,6 @@ workflows:
             #requires:
             # - aws-ecr/build-and-push-image
       - test-cluster:
-        cluster-name: k8s-qa
-        requires:
-          - aws-cli-example
+          cluster-name: k8s-qa
+          requires:
+            - aws-cli-example
