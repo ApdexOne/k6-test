@@ -10,7 +10,8 @@ jobs:
       - image: 'cimg/base:stable'
     steps:
       - checkout
-      - kubernetes/install-kubectl
+      - kubernetes/install-kubectl:
+          kubectl-version: 1.22.1
       - kubernetes/install-kubeconfig:
           kubeconfig: KUBECONFIG_DATA
       - kubernetes/create-or-update-resource:
