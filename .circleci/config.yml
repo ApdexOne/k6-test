@@ -14,13 +14,13 @@ jobs:
       - aws-cli/setup:
           profile-name: default
       - aws-cli/role-arn-setup:
-          profile-name: new-profile
+          profile-name: circle
           role-arn: 'arn:aws:iam::169893196636:role/circleci'
           source-profile: default
       - run: >-
           aws sts assume-role --role-arn
           "arn:aws:iam::169893196636:role/circleci" --role-session-name
-          AWSCLI-Session
+          AWSCLI-Session --profile circle
   test-cluster:
     docker:
       - image: 'cimg/python:3.10'
