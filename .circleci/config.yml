@@ -28,7 +28,8 @@ jobs:
 workflows:
   build_and_push_image:
     jobs:
-      - aws-cli-example
+      - test-cluster:
+          cluster-name: k8s-qa
         #      - aws-ecr/build-and-push-image:
         #   repo: "${AWS_RESOURCE_NAME_PREFIX}"
         #  tag: "${CIRCLE_SHA1}"
@@ -46,5 +47,3 @@ workflows:
             #- create-job:
             #requires:
             # - aws-ecr/build-and-push-image
-      - test-cluster:
-          cluster-name: k8s-qa
