@@ -63,4 +63,4 @@ workflows:
       - test-cluster:
           cluster-name: k8s-qa
           requires:
-            - aws-ecr/build-and-push-image
+            - configure-role-arn
