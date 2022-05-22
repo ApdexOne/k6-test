@@ -12,9 +12,6 @@ jobs:
       - docker/install-docker-tools
 
 workflows:
-  setup_docker:
-    jobs:
-      - your-job
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
