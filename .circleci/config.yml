@@ -31,6 +31,11 @@ jobs:
           kubectl-version: v1.22.1
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
+          aws-region: us-east-1
+          cluster-authentication-role-arn: arn:aws:iam::169893196636:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_34498c3ee6913213
+          cluster-context-alias: arn:aws:eks:us-east-1:169893196636:cluster/k8s-qa
+          kubectl-version: v1.22.1
+          verbose: true
       - run:
           command: |
             kubectl get services
