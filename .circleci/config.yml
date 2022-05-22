@@ -3,77 +3,6 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
 
-executors:
-  dind-executor:
-    docker:
-      - image: docker:dind
-        auth:
-          username: norgefajardo
-          password: $DOCKERHUB_PASSWORD
-    working_directory: /tmp/k6-image/
-
-  git-tools:
-    docker:
-      - image: norgefajardo/alpine-git:0.1
-        auth:
-          username: norgefajardo
-          password: $DOCKERHUB_PASSWORD
-    working_directory: /tmp/k6-image/
-
-jobs:
-  build-image:
-    parameters:
-      filename:
-        type: string
-        default: '${CIRCLE_PROJECT_REPONAME}'
-    executor: dind-executor
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Build docker image
-          command:  |
-            docker build -t test-k6 .
-      - deploy:
-          name: Push docker image to registry
-          command: |
-            docker tag test-k6 "norgefajardo/test-k6:${CIRCLE_SHA1}"
-            docker tag test-k6 "norgefajardo/test-k6:latest"
-            echo $DOCKERHUB_PASSWORD | docker login -u norgefajardo --password-stdin
-            docker push "norgefajardo/test-k6:${CIRCLE_SHA1}"
-            docker push "norgefajardo/test-k6:latest"
-            cat project-a.yaml | sed -e "s@norgefajardo/test-k6:latest@norgefajardo/test-k6:${CIRCLE_SHA1}@g"|tee project-<< parameters.filename >>.yaml
-      - run:
-          name: copy to workspace
-          command:  |
-            mkdir -p workspace
-            cp project-<< parameters.filename >>.yaml  workspace/project-<< parameters.filename >>.yaml
-      - persist_to_workspace:
-          root: workspace
-          paths:
-            - "*"
-
-  modify-chart:
-    parameters:
-      filename:
-        type: string
-        default: '${CIRCLE_PROJECT_REPONAME}'
-    executor: git-tools
-    steps:
-      - attach_workspace:
-          at: /tmp/k6-image/workspace
-      - run:
-          name: Clone chart repository
-          command: |
-            git config --global user.email "fajardovega@gmail.com"
-            git config --global user.name "Norge Fajardo Vega"
-            git clone git@github.com:ApdexOne/devops-toolkit.git ~/cron-chart
-            cd ~/cron-chart
-            cp /tmp/k6-image/workspace/project-<< parameters.filename >>.yaml apps/project-<< parameters.filename >>.yaml
-            git add .
-            git commit -am "${CIRCLE_SHA1}"
-            git push origin main
-
 workflows:
   build_and_push_image:
     jobs:
@@ -95,9 +24,3 @@ workflows:
           skip-when-tags-exist: false
           source-profile: sourceProfileName
           tag: 'latest,myECRRepoTag'
-            #jam3-project-a:
-            #jobs:
-            #- build-image
-            #- modify-chart:
-            #requires:
-            #- build-image
