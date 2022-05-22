@@ -7,6 +7,9 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.1
 
 jobs:
+  install-kubectl:
+    steps:
+      - kubernetes/install-kubectl
   aws-cli-example:
     executor: aws-cli/default
     steps:
