@@ -3,23 +3,16 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
   docker: circleci/docker@2.1.1
-jobs:
-  your-job:
-    executor:
-      name: docker/docker
-      tag: '3.6'
-    steps:
-      - docker/install-docker-tools
 
 workflows:
   build_and_push_image:
     jobs:
+      - docker/install-docker-tools:
+          install-docker: true
       - aws-ecr/build-and-push-image:
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           tag: "${CIRCLE_SHA1}"
           executor: aws-ecr/default
-          requires:
-            - your-job
 
 
 
