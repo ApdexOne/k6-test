@@ -7,7 +7,7 @@ executors:
     working_directory: /tmp/k6-image/
 
 orbs:
-  aws-ecr: circleci/aws-ecr@8.1.2
+  aws-ecr: circleci/aws-ecr@6.7.0
   docker: circleci/docker@2.1.1
 
 
