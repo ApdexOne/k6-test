@@ -17,8 +17,7 @@ jobs:
     steps:
       - run:
           command: |
-            cat ~/.aws/config
-            cat ~/.aws/credentials
+            export
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
           aws-region: us-east-1
