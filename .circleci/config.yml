@@ -15,6 +15,10 @@ jobs:
           Name of the EKS cluster
         type: string
     steps:
+      - run:
+          command: |
+            cat ~/.aws/config
+            cat ~/.aws/credentials
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
           aws-region: us-east-1
@@ -22,10 +26,6 @@ jobs:
           kubectl-version: v1.22.1
           cluster-authentication-role-arn: arn:aws:iam::169893196636:role/circleci
           verbose: true
-      - run:
-          command: |
-            cat ~/.aws/config
-            cat ~/.aws/credentials
       - run:
           command: |
             kubectl get services
