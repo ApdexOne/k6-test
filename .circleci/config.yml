@@ -11,12 +11,10 @@ orbs:
   docker: circleci/docker@2.1.1
 
 jobs:
-  your-job:
-    executor:
-      name: docker/docker
-      tag: '3.6'
+  build:
     steps:
-      - docker/install-docker-tools
+      - setup_remote_docker:
+          version: 20.10.14
 
 workflows:
   build_and_push_image:
@@ -24,7 +22,6 @@ workflows:
       - aws-ecr/build-and-push-image:
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           tag: "${CIRCLE_SHA1}"
-          executor: dind-executor
 
 
 
