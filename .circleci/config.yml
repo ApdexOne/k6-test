@@ -8,6 +8,8 @@ orbs:
 
 jobs:
   install-kubectl:
+    docker:
+      - image: 'cimg/base:stable'
     steps:
       - kubernetes/install-kubectl
   aws-cli-example:
