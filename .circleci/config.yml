@@ -2,8 +2,12 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.2
+  docker: circleci/docker@2.1.1
 
 workflows:
+  setup_docker:
+    jobs:
+      - docker/install-docker:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
