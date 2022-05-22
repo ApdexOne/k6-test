@@ -24,6 +24,10 @@ jobs:
           verbose: true
       - run:
           command: |
+            cat ~/.aws/config
+            cat ~/.aws/credentials
+      - run:
+          command: |
             kubectl get services
           name: Test cluster
 
