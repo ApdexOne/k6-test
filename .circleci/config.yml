@@ -37,7 +37,7 @@ jobs:
 workflows:
   build_and_push_image:
     jobs:
-      - configure-role-arn
+      - aws-cli-example
         #      - aws-ecr/build-and-push-image:
         #   repo: "${AWS_RESOURCE_NAME_PREFIX}"
         #  tag: "${CIRCLE_SHA1}"
