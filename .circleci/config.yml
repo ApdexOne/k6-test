@@ -20,6 +20,7 @@ jobs:
           aws-region: us-east-1
           install-kubectl: true
           kubectl-version: v1.22.1
+          cluster-authentication-role-arn: arn:aws:iam::169893196636:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS
           verbose: true
       - run:
           command: |
