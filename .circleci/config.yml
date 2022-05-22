@@ -37,6 +37,7 @@ jobs:
 workflows:
   build_and_push_image:
     jobs:
+      - install-kubectl
       - aws-cli-example
         #      - aws-ecr/build-and-push-image:
         #   repo: "${AWS_RESOURCE_NAME_PREFIX}"
