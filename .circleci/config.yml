@@ -1,15 +1,18 @@
 version: 2.1
 
-executors:
-  dind-executor:
-    docker:
-      - image: cimg/base:2022.03
-    working_directory: /tmp/k6-image/
-
 orbs:
   aws-ecr: circleci/aws-ecr@8.1.1
-  docker: circleci/docker@2.1.1
+  kubernetes: circleci/kubernetes@1.3.0
 
+jobs:
+  create-job:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - kubernetes/install-kubectl
+      - kubernetes/create-or-update-resource:
+          resource-file-path: job-template.yaml
+          show-kubectl-command: true
 
 workflows:
   build_and_push_image:
@@ -28,3 +31,6 @@ workflows:
           region: us-east-1
           registry-id: AWS_ECR_REGISTRY_ID
           skip-when-tags-exist: false
+      - create-job:
+        requires:
+          - aws-ecr/build-and-push-image
