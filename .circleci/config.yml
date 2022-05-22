@@ -7,20 +7,15 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.1
 
 jobs:
-  configure-role-arn:
+  aws-cli-example:
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/setup:
-          profile-name: default
-      - aws-cli/role-arn-setup:
-          profile-name: circle
-          role-arn: 'arn:aws:iam::169893196636:role/circleci'
-          source-profile: default
-      - run: >-
-          aws sts assume-role --role-arn
-          "arn:aws:iam::169893196636:role/circleci" --role-session-name
-          AWSCLI-Session --profile circle
+          profile-name: web
+          role-arn: 'arn:aws:iam::169893196636:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_34498c3ee6913213'
+          role-session-name: example-session
+      - run: echo "Run your code here"
   test-cluster:
     docker:
       - image: 'cimg/python:3.10'
