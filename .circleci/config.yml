@@ -55,4 +55,3 @@ workflows:
           cluster-name: k8s-qa
           requires:
             - aws-cli-example
-            - install-kubectl
