@@ -28,7 +28,7 @@ jobs:
           install-kubectl: true
       - run:
           command: |
-            kubectl config get-contexts
+            kubectl get svc
 workflows:
   build_and_push_image:
     jobs:
