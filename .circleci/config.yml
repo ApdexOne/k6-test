@@ -22,6 +22,8 @@ jobs:
           cluster-name: << parameters.cluster-name >>
           aws-region: us-east-1
           aws-profile: default
+          role-arn: "arn:aws:iam::169893196636:role/circleci"
+          verbose: true
           cluster-context-alias: qa
           install-kubectl: true
       - run:
