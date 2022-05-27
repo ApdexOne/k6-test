@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: project-a
-        envs:
+        env:
           - name: K6_INFLUXDB_ORGANIZATION
             value: primary
           - name: K6_INFLUXDB_BUCKET
