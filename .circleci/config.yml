@@ -57,6 +57,5 @@ workflows:
           skip-when-tags-exist: false
       - deploy-job:
           cluster-name: k8s-qa
-          image-name: "${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}"
           requires:
             - aws-ecr/build-and-push-image
