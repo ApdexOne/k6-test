@@ -28,16 +28,13 @@ jobs:
           aws-region: us-east-1
           aws-profile: default
           cluster-authentication-role-arn: "arn:aws:iam::169893196636:role/circleci"
-          verbose: true
           cluster-context-alias: qa
           install-kubectl: true
-      - kubernetes/create-or-update-resource:
-          resource-file-path: job-template.yaml
-          show-kubectl-command: true
       - kubernetes/update-container-image:
           container-image-updates: << parameters.image-name >>
           resource-file-path: job-template.yaml
-          show-kubectl-command: true
+      - kubernetes/create-or-update-resource:
+          resource-file-path: job-template.yaml
       - run:
           command: |
             kubectl get svc
