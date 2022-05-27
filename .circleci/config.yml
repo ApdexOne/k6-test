@@ -31,11 +31,9 @@ jobs:
           cluster-context-alias: qa
           install-kubectl: true
       - kubernetes/delete-resource:
-          now: true
           ignore-not-found: true
           resource-names: project-a
           resource-types: job
-          wait: true
       - run:
           name: Replace image name
           command: |
