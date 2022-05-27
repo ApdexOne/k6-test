@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Replace image name
           command: |
-            cat job-template.yaml | sed -e "s@registry/image:tag@$${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}@g"|tee job-definition.yaml
+            cat job-template.yaml | sed -e "s@registry/image:tag@${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}@g"|tee job-definition.yaml
       - kubernetes/create-or-update-resource:
           resource-file-path: job-definition.yaml
       - run:
