@@ -11,7 +11,7 @@ jobs:
     docker:
       - image: 'cimg/python:3.10'
         environment:
-        SHORT_GIT_HASH: $(echo $CIRCLE_SHA1 | cut -c -7)
+          SHORT_GIT_HASH: $(echo $CIRCLE_SHA1 | cut -c -7)
     parameters:
       cluster-name:
         description: |
