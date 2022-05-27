@@ -33,11 +33,11 @@ jobs:
           install-kubectl: true
       - kubernetes/create-or-update-resource:
           resource-file-path: job-template.yaml
-          resource-name: project-a
           show-kubectl-command: true
       - kubernetes/update-container-image:
           container-image-updates: << parameters.image-name >>
           resource-file-path: job-template.yaml
+          show-kubectl-command: true
       - run:
           command: |
             kubectl get svc
