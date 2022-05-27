@@ -32,7 +32,7 @@ jobs:
           install-kubectl: true
       - kubernetes/delete-resource:
           now: true
-          resource-name: project-a
+          resource-names: project-a
           resource-types: job
           wait: true
       - run:
