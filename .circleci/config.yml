@@ -7,13 +7,17 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.1
 
 jobs:
-  test-cluster:
+  deploy-job:
     docker:
       - image: 'cimg/python:3.10'
     parameters:
       cluster-name:
         description: |
           Name of the EKS cluster
+        type: string
+      image-name:
+        description: |
+          Name of the job's image
         type: string
     steps:
       - aws-cli/setup:
@@ -26,28 +30,37 @@ jobs:
           verbose: true
           cluster-context-alias: qa
           install-kubectl: true
+      - kubernetes/create-or-update-resource:
+          get-rollout-status: true
+          resource-file-path: job-template.yaml
+          resource-name: job/project-a
+          show-kubectl-command: true
+      - kubernetes/update-container-image:
+          container-image-updates: << parameters.image-name >>
+          get-rollout-status: true
+          resource-name: job/project-a
       - run:
           command: |
             kubectl get svc
 workflows:
   build_and_push_image:
     jobs:
-      - test-cluster:
+      - aws-ecr/build-and-push-image:
+        repo: "${AWS_RESOURCE_NAME_PREFIX}"
+        tag: "${CIRCLE_SHA1}"
+        aws-access-key-id: ACCESS_KEY_ID_ENV_VAR_NAME
+        aws-secret-access-key: SECRET_ACCESS_KEY_ENV_VAR_NAME
+        aws-cli-version: latest
+        extra-build-args: '--compress'
+        no-output-timeout: 20m
+        platform: linux/amd64
+        public-registry: false
+        push-image: true
+        region: us-east-1
+        registry-id: AWS_ECR_REGISTRY_ID
+        skip-when-tags-exist: false
+      - deploy-job:
           cluster-name: k8s-qa
-        #      - aws-ecr/build-and-push-image:
-        #   repo: "${AWS_RESOURCE_NAME_PREFIX}"
-        #  tag: "${CIRCLE_SHA1}"
-        #  aws-access-key-id: ACCESS_KEY_ID_ENV_VAR_NAME
-        #  aws-secret-access-key: SECRET_ACCESS_KEY_ENV_VAR_NAME
-        #  aws-cli-version: latest
-        #  extra-build-args: '--compress'
-        #  no-output-timeout: 20m
-        #  platform: linux/amd64
-        #          public-registry: false
-        #  push-image: true
-        #  region: us-east-1
-        #  registry-id: AWS_ECR_REGISTRY_ID
-        #  skip-when-tags-exist: false
-            #- create-job:
-            #requires:
-            # - aws-ecr/build-and-push-image
+          image-name: "${AWS_RESOURCE_NAME_PREFIX}:{CIRCLE_SHA1}"
+          requires:
+            - aws-ecr/build-and-push-image

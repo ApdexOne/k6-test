@@ -2,16 +2,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: project-job-test-estopa
+  name: project-a
 spec:
   completions: 2
   parallelism: 2
   template:
     metadata:
-      name: project-job-test-estopa
+      name: project-a
     spec:
       containers:
-      - name: project
+      - name: project-a
         image: norgefajardo/test-k6:37b263732b5946ed14c2ab17b804daa37863ff8e
         resources:
           requests:
