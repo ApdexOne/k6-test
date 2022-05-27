@@ -8,7 +8,10 @@ import jsonpath from 'https://jslib.k6.io/jsonpath/1.0.2/index.js';
 
 
 export let options = {
-    discardResponseBodies: true,  
+    tags: {
+        project: 'project1',
+      },
+    discardResponseBodies: true,
     scenarios: {
         happy_scenary: {
         executor: 'ramping-arrival-rate',
@@ -52,13 +55,13 @@ let scenary = ''
 const user_data = new SharedArray("user_data", function() {return papaparse.parse(open('users.csv'), { header: true }).data;});
 
 export function logicflow(){
-    let user = user_data[Math.floor(Math.random() * user_data.length)] 
+    let user = user_data[Math.floor(Math.random() * user_data.length)]
     let headers = {'Accept-Language': 'en-US,en;q=0.5', 'Upgrade-Insecure-Requests': 1, 'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:72.0) Gecko/20100101 Firefox/72.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'}
     group ('/', function(){
         let first_page = http.get(`${URL}/`, {headers: headers, tags:{ name: '/'}})
         metrics(first_page)
         })
-    
+
     headers['Referer'] = headers['Origin'] = URL
     headers['Content-Type'] = 'application/x-www-form-urlencoded'
     let flight, price, street
@@ -68,7 +71,7 @@ export function logicflow(){
         let reserve = http.post(`${URL}/reserve.php`, {'fromPort': user.from, 'toPort': user.to}, {headers: headers, responseType: 'text', tags:{ name: '/reserve'}})
         metrics(reserve)
         })
-    
+
     group ('/purchase', function(){
         let purchase = http.post(`${URL}/purchase.php`, {'flight': flight, 'price': price, 'airline': 'United Airlines', 'fromPort': user.from, 'toPort': user.to }, {headers: headers, tags:{ name: '/purchase'}})
         metrics(purchase)
