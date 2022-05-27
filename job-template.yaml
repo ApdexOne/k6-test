@@ -12,6 +12,13 @@ spec:
     spec:
       containers:
       - name: project-a
+        envs:
+          - name: K6_INFLUXDB_ORGANIZATION
+            value: primary
+          - name: K6_INFLUXDB_BUCKET
+            value: primary
+          - name: K6_INFLUXDB_TOKEN
+            value: 8BMAPLyl9CJGc8jTM2lB
         image: registry/image:tag
         resources:
           requests:
