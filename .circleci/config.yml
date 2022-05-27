@@ -30,8 +30,10 @@ jobs:
           cluster-authentication-role-arn: "arn:aws:iam::169893196636:role/circleci"
           cluster-context-alias: qa
           install-kubectl: true
-      - command: |
-          cat job-template.yaml | sed -e "s@registry/image:tag@${AWS_RESOURCE_NAME_PREFIX}:{CIRCLE_SHA1} >>@g"|tee job-definition.yaml
+      - run:
+          name: Replace image name
+          command: |
+            cat job-template.yaml | sed -e "s@registry/image:tag@${AWS_RESOURCE_NAME_PREFIX}:{CIRCLE_SHA1} >>@g"|tee job-definition.yaml
       - kubernetes/create-or-update-resource:
           resource-file-path: job-definition.yaml
       - run:
