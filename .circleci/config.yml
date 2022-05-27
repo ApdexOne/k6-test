@@ -20,6 +20,7 @@ jobs:
           Name of the job's image
         type: string
     steps:
+      - checkout
       - aws-cli/setup:
           profile-name: default
       - aws-eks/update-kubeconfig-with-authenticator:
