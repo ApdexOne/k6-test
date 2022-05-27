@@ -32,7 +32,6 @@ jobs:
           cluster-context-alias: qa
           install-kubectl: true
       - kubernetes/create-or-update-resource:
-          get-rollout-status: true
           resource-file-path: job-template.yaml
           resource-name: job/project-a
           show-kubectl-command: true
