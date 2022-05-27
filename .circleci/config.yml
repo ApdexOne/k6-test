@@ -35,7 +35,7 @@ jobs:
           command: |
             cat job-template.yaml | sed -e "s@registry/image:tag@${AWS_ECR_REGISTRY}/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}@g"|tee job-definition.yaml
       - kubernetes/create-or-update-resource:
-          resource-file-path: job-template.yaml
+          resource-file-path: job-definition.yaml
           resource-name: job/project-a
 workflows:
   build_and_push_image:
