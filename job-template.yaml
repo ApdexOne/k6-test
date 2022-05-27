@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: project-a
-        image: norgefajardo/test-k6:37b263732b5946ed14c2ab17b804daa37863ff8e
+        image: registry/image:tag
         resources:
           requests:
             memory: "64Mi"
