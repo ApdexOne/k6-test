@@ -37,8 +37,7 @@ jobs:
           show-kubectl-command: true
       - kubernetes/update-container-image:
           container-image-updates: << parameters.image-name >>
-          get-rollout-status: true
-          resource-name: job/project-a
+          resource-name: project-a
       - run:
           command: |
             kubectl get svc
