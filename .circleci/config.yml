@@ -30,11 +30,17 @@ jobs:
           cluster-authentication-role-arn: "arn:aws:iam::169893196636:role/circleci"
           cluster-context-alias: qa
           install-kubectl: true
+      - kubernetes/delete-resource:
+          now: true
+          resource-name: project-a
+          resource-types: job
+          wait: true
       - run:
           name: Replace image name
           command: |
             cat job-template.yaml | sed -e "s@registry/image:tag@${AWS_ECR_REGISTRY}/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}@g"|tee job-definition.yaml
       - kubernetes/create-or-update-resource:
+          action-type: apply
           resource-file-path: job-definition.yaml
           resource-name: job/project-a
 workflows:
