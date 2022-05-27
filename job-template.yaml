@@ -2,16 +2,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: project-a
+  name: project-
 spec:
   completions: 2
   parallelism: 2
   template:
     metadata:
-      name: project-a
+      name: project-
     spec:
       containers:
-      - name: project-a
+      - name: project-
         env:
           - name: K6_INFLUXDB_ORGANIZATION
             value: primary

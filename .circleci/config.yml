@@ -10,6 +10,8 @@ jobs:
   deploy-job:
     docker:
       - image: 'cimg/python:3.10'
+        environment:
+        SHORT_GIT_HASH: $(echo $CIRCLE_SHA1 | cut -c -7)
     parameters:
       cluster-name:
         description: |
@@ -17,8 +19,6 @@ jobs:
         type: string
     steps:
       - checkout
-        #- aws-cli/setup:
-        #  profile-name: default
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: << parameters.cluster-name >>
           aws-region: us-east-1
@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Replace image name
           command: |
-            cat job-template.yaml | sed -e "s@registry/image:tag@${AWS_ECR_REGISTRY}/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}@g"|tee job-definition.yaml
+            cat job-template.yaml | sed -e "s@project-@project-${SHORT_GIT_HASH}@g" | sed -e "s@registry/image:tag@${AWS_ECR_REGISTRY}/${AWS_RESOURCE_NAME_PREFIX}:${CIRCLE_SHA1}@g"|tee job-definition.yaml
       - kubernetes/create-or-update-resource:
           action-type: apply
           resource-file-path: job-definition.yaml
