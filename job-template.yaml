@@ -3,15 +3,15 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: project-
-labels:
-  WorkerType: fargate
-  Environment: tests
 spec:
   completions: 2
   parallelism: 2
   template:
     metadata:
       name: project-
+      labels:
+        WorkerType: fargate
+        Environment: tests
     spec:
       containers:
       - name: project-
