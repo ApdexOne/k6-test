@@ -1,4 +1,4 @@
-FROM 169893196636.dkr.ecr.us-east-1.amazonaws.com/k6:1.0
+FROM grafana/k6:0.38.3
 
 ADD docker-entrypoint.sh /docker-entrypoint.sh
 
