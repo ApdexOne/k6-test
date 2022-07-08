@@ -9,6 +9,9 @@ spec:
   template:
     metadata:
       name: project-
+      labels:
+        WorkerType: fargate
+        Environment: tests
     spec:
       containers:
       - name: project-
