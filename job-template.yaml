@@ -4,8 +4,8 @@ kind: Job
 metadata:
   name: project-
 spec:
-  completions: 2
-  parallelism: 2
+  completions: 1
+  parallelism: 1
   template:
     metadata:
       name: project-
@@ -16,6 +16,8 @@ spec:
       containers:
       - name: project-
         image: registry/image:tag
+        command: ["/bin/sleep"]
+        args: ["30000"]
         resources:
           requests:
             memory: "64Mi"
