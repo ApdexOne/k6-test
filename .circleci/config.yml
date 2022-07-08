@@ -35,6 +35,7 @@ jobs:
           cluster-authentication-role-arn: ${CLUSTER_AUTH_ARN}
           cluster-context-alias: qa
           install-kubectl: true
+          verbose: true
       - run:
           name: Replace image name
           command: |
