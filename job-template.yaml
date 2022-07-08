@@ -3,6 +3,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: project-
+  namespace: observability
 spec:
   completions: 1
   parallelism: 1
@@ -16,8 +17,6 @@ spec:
       containers:
       - name: project-
         image: registry/image:tag
-        command: ["/bin/sleep"]
-        args: ["30000"]
         resources:
           requests:
             memory: "64Mi"
