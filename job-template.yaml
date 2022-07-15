@@ -2,8 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: project-
-  namespace: observability
+  name: project-  
 spec:
   completions: 1
   parallelism: 1
